@@ -39,15 +39,22 @@ A Block statement is used to group code together. To create a block, we use a pa
 
 Optionally, a block can be labeled as a visual identifier or as a target for [break](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Statements/break). 
 
-Blocks are also used with functions, conditionals and loops.
+Blocks are also used with functions, conditionals and loops:
+
+```JS
+if ( true || false ) { /* within the block, body of conditional */  }
+for ( let i = 0; ... ) { /* within the block, body of loop */ }
+while ( i < num ... ) { /* within the block, body of loop */ }
+function ( arg1, arg2 ) { /* within the block, body of function */ }
+```
 
 In addition to grouping code together, blocks create a new scope for the variables defined within the block.
 
 ### Scope
 
-When we use blocks, we create a new scope for the variables defined within the block. If we are using the ES6 `let` and `const` variables, within a block, those variables have _block scope_, meaning the variable defined within the block are limited in scope to the block in which it is defined:
+When we use blocks, we create a new scope for the variables defined within the block. Within a block, if we are using the ES6 `let` and `const` variables (which you should), these variables have _block scope_, meaning the variables defined within the block are limited in scope to the block in which it is defined:
 
-```
+```JS
 let name = 'Danny'
 {
   let name = 'Caleb'
@@ -55,28 +62,30 @@ let name = 'Danny'
 console.log(name) // prints 'Danny'
 
 // name = 'Caleb' is limited in scope to the block in which it is defined
+```
 
 You can think of scope as a collection of nested boxes. Each scope acts as a container in which variables and functions can be declared. while JavaScript is executing code within a scope, it only has access to identifiers declared in the current scope and higher scopes, the parent and global scopes.
 
 Scopes in JavaScript come in two flavors: block scope and function scope. When you create a function, you isolate the scope within that function. Within the function, you can access the local scope and the parent scopes, but outside the function, you cannot see or access the scope within the function. The function's contents are private and are accessible only within that function.
 
-Note that if we are using `var`, the variables do *not* have block scope. Those variables are scoped to the containing function or script, and the value of those variables defined with *var* persist beyond the block itself. For this reason, we always use `let` and `const` so that we do not get any unexpected behavior with our variables.
+*Caution: if using `var`:*
+If we are using `var`, the variable will *not* have block scope. Those variables are scoped to the containing function or script, and the value of those variables defined with *var* persist beyond the block itself. For this reason, we always use `let` and `const` so that we do not get any unexpected behavior with our variables.
 
-*We can define blocks in a variety of ways:*
-```
+*We can create scope by using functions and blocks:*
+```JS
 { /* creates block scope */ }
 
 if { /* creates block scope */ }
 for ( /* ... */ ) { /* creates block scope */ }
 while ( /* ... */ ) { /* creates block scope */ }
 function ( /* ... */ ) { /* creates a function scope */ }
-
+```
 
 ##### Demo - `global and local scope`
 
 Let's see some more code examples of scopes.
 
-Block scope means our different scopes are separated by blocks `{ }`.
+Remember that block scope means our different scopes are separated by blocks `{ }`.
 
 ```js
 // I am not inside a block
@@ -253,7 +262,7 @@ console.log(a) // ReferenceError: a is not defined
 
 The scope of our parameters are within the function block as well
 
-```js
+```JS
 const print = function(a) {
   console.log(a)
 }
@@ -270,7 +279,7 @@ When you are not familiar with the rules of scope, it will be a common source of
 
 We know that functions create a new lexical scope. Imagine you wanted to capture the state of this scope at a specific moment in time, and then access it later:
 
-```
+```JS
 const num = 1
 const add = function(num2){
   return num + num2
@@ -288,7 +297,7 @@ This combination of a function and it's lexical scope is called a _closure_. By 
 
 Here's another example that generates a secret message:
 
-```
+```JS
 let sayMessage // this is undefined for now, we'll assign something to it later
 
 if (true) { // this block will run no matter what
@@ -342,7 +351,7 @@ By using closures, we gain the ability to write code that parallels object-orien
 
 Diagram scope for the following code. Work in pairs. When you're done, compare your work to another pair's. Discuss any differences and correct any mistakes. Then, answer the following questions together.
 
-```javascript
+```JS
 const autoMake = 'Ford'
 const autoModel = 'Stang'
 const price = 2368
