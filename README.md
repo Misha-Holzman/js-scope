@@ -2,6 +2,9 @@
 
 # JS-Blocks-Scope-Closures
 
+## Prerequisetes 
+- [js-reference-types](https://git.generalassemb.ly/ga-wdi-boston/js-reference-types)
+
 ## Objectives
 - Explain what a block is
 - Describe the difference between global and local scope in JavaScript.
@@ -10,7 +13,23 @@
 - Create a closure 
 - Explain why a closure is beneficial 
 
+## Preparation
+
+1.  Fork and clone this repository.
+ [FAQ](https://github.com/ga-wdi-boston/meta/wiki/ForkAndClone)
+1.  Create a new branch, `training`, for your work.
+1.  Checkout to the `training` branch.
+1.  Install dependencies with `npm install`.
+
+
+### Discussion
+
+One best practice when coding is to only allow a piece of code to access the things it needs to access, and nothing more. To reduce interdependency and lower [coupling](https://en.wikipedia.org/wiki/Coupling_%28computer_programming%29), we can separate code into groups, called blocks, and create different containers to hold our variables, called scope.
+
+Why might software developers want to keep certain objects and data separate from other parts of an application?
+
 ### Blocks
+
 A Block statement is used to group code together. To create a block, we use a pair of curly braces:
 ```
 {
