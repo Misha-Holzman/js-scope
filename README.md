@@ -429,6 +429,10 @@ In JavaScript, we use scope to encapsulate data and hide it from other parts of 
 - [MDN - Scope](https://developer.mozilla.org/en-US/docs/Glossary/Scope)
 - [You Don't Know JS - Chapter 3](https://en.wikipedia.org/wiki/Principle_of_least_privilege)
 - [MDN - Closures](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Closures)
+- Closures
+  - [Learn JS Closures](https://medium.freecodecamp.org/lets-learn-javascript-closures-66feb44f6a44)
+  - [Closures in Plain English](https://medium.freecodecamp.org/whats-a-javascript-closure-in-plain-english-please-6a1fc1d2ff1c)
+  - [Closures Explained](https://medium.freecodecamp.org/javascript-closures-explained-by-mailing-a-package-4f23e9885039)
 - [Advanced-Javascript](https://git.generalassemb.ly/ga-wdi-boston/advanced-javascript)
 - [Design Patterns](https://addyosmani.com/resources/essentialjsdesignpatterns/book/#factorypatternjavascript)
 
