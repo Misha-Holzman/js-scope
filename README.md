@@ -31,22 +31,28 @@ Why might software developers want to keep certain objects and data separate fro
 ### Blocks
 
 A Block statement is used to group code together. To create a block, we use a pair of curly braces:
-```
+<!-- start code block file="snippets/block.js" -->
+```js
 {
   // Statements
 }
 ```
+<!-- end code block -->
+
 
 Optionally, a block can be labeled as a visual identifier or as a target for [break](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Statements/break). 
 
 Blocks are also used with functions, conditionals and loops:
 
-```JS
-if ( true || false ) { /* within the block, body of conditional */  }
-for ( let i = 0; ... ) { /* within the block, body of loop */ }
-while ( i < num ... ) { /* within the block, body of loop */ }
-function ( arg1, arg2 ) { /* within the block, body of function */ }
+<!-- start code block file="snippets/block-examples.js" -->
+```js
+if ( /* true || false */ ) { /* within the block, body of conditional */  }
+for ( /* let i = 0; ...*/ ) { /* within the block, body of loop */ }
+while ( /* i < num ... */ ) { /* within the block, body of loop */ }
+function ( /* arg1, arg2 */ ) { /* within the block, body of function */ }
+
 ```
+<!-- end code block -->
 
 In addition to grouping code together, blocks create a new scope for the variables defined within the block.
 
@@ -54,32 +60,37 @@ In addition to grouping code together, blocks create a new scope for the variabl
 
 When we use blocks, we create a new scope for the variables defined within the block. Within a block, if we are using the ES6 `let` and `const` variables (which you should), these variables have _block scope_, meaning the variables defined within the block are limited in scope to the block in which it is defined:
 
-```JS
-let name = 'Danny'
+<!-- start code block file="snippets/block-scope.js" -->
+```js
+const name = 'Danny'
 {
-  let name = 'Caleb'
+  const name = 'Caleb'
 }
 console.log(name) // prints 'Danny'
 
 // name = 'Caleb' is limited in scope to the block in which it is defined
 ```
+<!-- end code block -->
 
 You can think of scope as a collection of nested boxes. Each scope acts as a container in which variables and functions can be declared. while JavaScript is executing code within a scope, it only has access to identifiers declared in the current scope and higher scopes, the parent and global scopes.
 
 Scopes in JavaScript come in two flavors: block scope and function scope. When you create a function, you isolate the scope within that function. Within the function, you can access the local scope and the parent scopes, but outside the function, you cannot see or access the scope within the function. The function's contents are private and are accessible only within that function.
 
-*Caution: if using `var`:*
+_**Caution** if using `var`:_
 If we are using `var`, the variable will *not* have block scope. Those variables are scoped to the containing function or script, and the value of those variables defined with *var* persist beyond the block itself. For this reason, we always use `let` and `const` so that we do not get any unexpected behavior with our variables.
 
-*We can create scope by using functions and blocks:*
-```JS
+**We can create scope by using functions and blocks:**
+<!-- start code block file="snippets/scope-creation.js" -->
+```js
 { /* creates block scope */ }
 
 if { /* creates block scope */ }
 for ( /* ... */ ) { /* creates block scope */ }
 while ( /* ... */ ) { /* creates block scope */ }
 function ( /* ... */ ) { /* creates a function scope */ }
+
 ```
+<!-- end code block -->
 
 ##### Demo - `global and local scope`
 
@@ -87,6 +98,7 @@ Let's see some more code examples of scopes.
 
 Remember that block scope means our different scopes are separated by blocks `{ }`.
 
+<!-- start code block file="snippets/block-scope2.js" -->
 ```js
 // I am not inside a block
 if (true) {
@@ -94,22 +106,26 @@ if (true) {
 }
 // I am not inside a block
 ```
+<!-- end code block -->
 
 *NOT* objects but blocks.
+<!-- start code block file="snippets/block-not-object.js" -->
 ```js
 if (true) {
   // i am inside a block
 }
 
-let obj = {
-  prop1: "I am not inside a block",
-  prop2: "This is an object silly"
+const obj = {
+  prop1: 'I am not inside a block',
+  prop2: 'This is an object silly'
 }
 ```
+<!-- end code block -->
 
 The outer most scope is the `global scope` and all inner scopes are considered
 `local scopes`.
 
+<!-- start code block file="snippets/global-local-scope.js" -->
 ```js
 // global scope
 if (true) {
@@ -117,23 +133,27 @@ if (true) {
 }
 // global scope
 ```
+<!-- end code block -->
 
 Variables are accessible within the scope they are declared.
 
+<!-- start code block file="snippets/global-local-scope-vars.js" -->
 ```js
 // global scope
 if (true) {
   // local scope
-  let x = 1  // what would happen if `var` were used instead?
+  const x = 1  // what would happen if `var` were used instead?
   console.log(x)  // 1
   // When should we use `console` functions?
 }
 // global scope
 console.log(x)  // ReferenceError: x is not defined
 ```
+<!-- end code block -->
 
 They are accessible to any inner scopes (child scopes).
 
+<!-- start code block file="snippets/child-scope-vars.js" -->
 ```js
 // global scope
 let x = 1
@@ -146,29 +166,33 @@ if (true) {
 // global scope
 console.log(x)  // 2
 ```
+<!-- end code block -->
 
 But not to the scopes above them (parent scopes).
 
+<!-- start code block file="snippets/parent-scope-vars.js" -->
 ```js
 // global scope
-let x = 1
+const x = 1
 
 if (true) {
   // local scope
-  let y = x
+  const y = x
   console.log(y)  // 1
 }
 // global scope
 console.log(x)  // 1
 console.log(y)  // ReferenceError: y is not defined
 ```
+<!-- end code block -->
 
 Variables are not accessible from sibling scopes.
 
+<!-- start code block file="snippets/sibling-scope.js" -->
 ```js
 if (true) {
   // local scope of 1st sibling
-  let a = 1
+  const a = 1
   console.log(a) // 1
 }
 
@@ -177,10 +201,12 @@ if (true) {
   console.log(a) // ReferenceError: a is not defined
 }
 ```
+<!-- end code block -->
 
 Different scopes can have variables that are declared with the same name and
 they do not conflict or know about each other.
 
+<!-- start code block file="snippets/different-scope-vars.js" -->
 ```js
 // global scope
 const x = 1
@@ -194,6 +220,7 @@ if (true) {
 // global scope
 console.log(x)  // 1
 ```
+<!-- end code block -->
 
 So that means a variable declared in the global scope is accessible by all of
 the scopes we create and a variable declared in a local scope is only
@@ -201,17 +228,20 @@ accessible to itself and its child scopes.
 
 ##### Code Along - `debugging variable scope`
 
+Within `bin/scope-practice.js`, let's get some practice creating global and nested block scopes.
+
+<!-- start code block file="snippets/debugging-variable-scope.js" -->
 ```js
 // global scope
-let a = 1
+const a = 1
 
 if (true) {
   // local scope of 1st nested if statement
-  let b = 2
+  const b = 2
 
   if (true) {
     // local scope of 2nd nested if statement
-    let c = 3
+    const c = 3
     console.log(a) // 1
     console.log(b) // 2
     console.log(c) // 3
@@ -228,48 +258,45 @@ console.log(a) // 1
 console.log(b) // ReferenceError: b is not defined
 console.log(c) // ReferenceError: c is not defined
 ```
+<!-- end code block -->
 
 Conditions are just 1 example of block scope.
 Loops are another example of block scope.
 
+<!-- start code block file="snippets/scope-creation-examples.js" -->
 ```js
 while (true) { // don't run this
-  let a = 1
+  const a = 1
   console.log(a) // 1
 }
 console.log(a) // ReferenceError: a is not defined
-```
 
-For Loops still have block scope even though the syntax is different.
+//  For Loops still have block scope even though the syntax is different.
 
-```js
 for (let i = 1; i < 2; i++) {
   console.log(i) // 1
 }
 console.log(i) // ReferenceError: i is not defined
-```
 
-Functions are another example of block scope.
+// Functions are another example of block scope.
 
-```js
-const anyFunction = function() {
-  let a = 1
+const anyFunction = function () {
+  const a = 1
   console.log(a) // 1
 }
 
 console.log(a) // ReferenceError: a is not defined
-```
 
-The scope of our parameters are within the function block as well
+// The scope of our parameters are within the function block as well
 
-```JS
-const print = function(a) {
+const print = function (a) {
   console.log(a)
 }
 
 print(1) // 1
 console.log(a) // ReferenceError: a is not defined
 ```
+<!-- end code block -->
 
 As we have seen, utilizing scope provides great utility. We get more control over who can access and manipulate our data. We can use scope to declare a variable without polluting the global namespace. Scoping provides a way to encapsulate data and prevent other parts of our applciation from accessing variables declared within a certain scope.
 
@@ -279,9 +306,10 @@ When you are not familiar with the rules of scope, it will be a common source of
 
 We know that functions create a new lexical scope. Imagine you wanted to capture the state of this scope at a specific moment in time, and then access it later:
 
-```JS
+<!-- start code block file="snippets/closures-basic.js" -->
+```js
 const num = 1
-const add = function(num2){
+const add = function (num2) {
   return num + num2
 }
 // This function closes around the scope and always has access to num.
@@ -292,12 +320,14 @@ add(5) // Access the lexical scope of add() that was available when the function
 add(2)
 // -> 3
 ```
+<!-- end code block -->
 
-This combination of a function and it's lexical scope is called a _closure_. By creating a closure, we can use a function to close over the current local scope and access it at a later time:
+This combination of a function and it's lexical scope is called a _closure_. By creating a closure, we can use a function to close over the current local scope and access it at a later time.
 
 Here's another example that generates a secret message:
 
-```JS
+<!-- start code block file="snippets/closures-basic-2.js" -->
+```js
 let sayMessage // this is undefined for now, we'll assign something to it later
 
 if (true) { // this block will run no matter what
@@ -317,9 +347,10 @@ sayMessage('Chris')
 // -> 'Chris: This is a secret just for you'
 
 // What scope is the `secretMsg` defined in? What about `name`? Is the `secretMsg` that secret afterall?
-```
 
-Notice how each instance of `sayMessage()` is unique, but also shares the same value of `secretMsg`.
+// Notice how each instance of `sayMessage()` is unique, but also shares the same value of `secretMsg`.
+```
+<!-- end code block -->
 
 In JavaScript, when you create a function, you are also creating a closure, which is a combination of a function and the lexical (local) scope (or environment) in which that function was declared.  When you later call the function, the function maintains a reference to its lexical envrionment that was present when that function was declared.
 
@@ -327,10 +358,11 @@ Thinking about a real world example, let's imagine a toy factory that produces d
 
 We are going to create a parent function and an inner function. The inner function is going to return a function that we can use later on. This returned function is forever going to get access to the scope of the parent function, because it closed around the scope when the function was defined.
 
-```JS
-const toyFactory = function(typeOfToy) {
+<!-- start code block file="snippets/factory-pattern.js" -->
+```js
+const toyFactory = function (typeOfToy) {
   let numToy = 1
-  return function() {
+  return function () {
     console.log('This is ' + typeOfToy + ' number ' + numToy)
     numToy++
   }
@@ -345,23 +377,26 @@ tamagotchiFactory() // what is the value of numToy?
 
 // Each toy factory gets access to its own version of the parent scope
 ```
+<!-- end code block -->
+
 By using closures, we gain the ability to write code that parallels object-oriented design, creating objects that have data associated its methods. We are able to encapsulate data within an object, and hide data from other parts of our application.
 
 ### Lab: Diagramming Scope
 
 Diagram scope for the following code. Work in pairs. When you're done, compare your work to another pair's. Discuss any differences and correct any mistakes. Then, answer the following questions together.
 
-```JS
+<!-- start code block file="snippets/lab-diagramming-scope.js" -->
+```js
 const autoMake = 'Ford'
 const autoModel = 'Stang'
 const price = 2368
 const baseYear = 1964
 const inflation = 0.05
 
-function showAuto(year){
-  function autoInfo(){
-    currentPrice = price * Math.pow((1 + inflation), year-baseYear) 
-    console.log('Auto is a ' + year + ' ' + autoMake + ' ' + autoModel + ', it\'s price is ' + currentPrice + '$')
+const showAuto = function (year) {
+  const autoInfo = function () {
+    const currentPrice = price * Math.pow((1 + inflation), year - baseYear)
+    console.log(`Auto is a ${year} ${autoMake} ${autoModel}', it's price is ${currentPrice}$`)
   }
 
   autoInfo()
@@ -369,6 +404,7 @@ function showAuto(year){
 
 showAuto(1979)
 ```
+<!-- end code block -->
 
 1. Name any and all scopes from which `autoModel` is available. ("Available" is another word for "defined".)
 1. Is `autoInfo` available from the global scope? Can you execute `autoInfo()` from there?
