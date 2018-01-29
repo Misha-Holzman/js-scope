@@ -60,6 +60,8 @@ In addition to grouping code together, blocks create a new scope for the variabl
 
 When we use blocks, we create a new scope for the variables defined within the block. Within a block, if we are using the ES6 `let` and `const` variables (which you should), these variables have _block scope_, meaning the variables defined within the block are limited in scope to the block in which it is defined:
 
+#### Demo - creating block scope
+
 <!-- start code block file="snippets/block-scope.js" -->
 ```js
 const name = 'Danny'
@@ -90,9 +92,10 @@ while ( /* ... */ ) { /* creates block scope */ }
 function ( /* ... */ ) { /* creates a function scope */ }
 
 ```
+
 <!-- end code block -->
 
-##### Demo - `global and local scope`
+#### Demo - global and local scope
 
 Let's see some more code examples of scopes.
 
@@ -226,11 +229,12 @@ So that means a variable declared in the global scope is accessible by all of
 the scopes we create and a variable declared in a local scope is only
 accessible to itself and its child scopes.
 
-##### Code Along - `debugging variable scope`
+#### Code Along - debugging variable scope
 
 Within `bin/scope-practice.js`, let's get some practice creating global and nested block scopes.
 
 <!-- start code block file="snippets/debugging-variable-scope.js" -->
+
 ```js
 // global scope
 const a = 1
@@ -298,21 +302,29 @@ console.log(a) // ReferenceError: a is not defined
 ```
 <!-- end code block -->
 
-As we have seen, utilizing scope provides great utility. We get more control over who can access and manipulate our data. We can use scope to declare a variable without polluting the global namespace. Scoping provides a way to encapsulate data and prevent other parts of our applciation from accessing variables declared within a certain scope.
+As we have seen, utilizing scope provides great utility. We get more control over who can access and manipulate our data. We can use scope to declare a variable without polluting the global namespace. Scoping provides a way to __encapsulate__ data and prevent other parts of our applciation from accessing variables declared within a certain scope.
 
 When you are not familiar with the rules of scope, it will be a common source of bugs and frustration. By being aware of how scope is created, and by using scope effectively, you will write code that is more efficient, organized and less error prone.
 
 ### Closures
 
-We know that functions create a new lexical scope. Imagine you wanted to capture the state of this scope at a specific moment in time, and then access it later:
+We know that functions create a new scope, meaning that variables defined within a function are not accessible outside of a function. Going further, nested functions also contain the scope of parent functions. But you can't go the other direction, saying parent functions have access to child function scopes.
+
+We can describe this as _lexical scoping_ or _static scoping_, when a variable defined within a function gets access to the function scope. This lexical scope is defined by the location where the variable is declared.
+
+#### Demo - creating a closure around a variable
+
+Imagine you wanted to capture the state of this lexical scope at a specific moment in time, and then access it later:
 
 <!-- start code block file="snippets/closures-basic.js" -->
+
 ```js
 const num = 1
 const add = function (num2) {
   return num + num2
 }
-// This function closes around the scope and always has access to num.
+// The add() function closes around the function scope
+// and always has access to the variable num.
 
 add(5) // Access the lexical scope of add() that was available when the function was defined
 // -> 6
@@ -322,11 +334,14 @@ add(2)
 ```
 <!-- end code block -->
 
-This combination of a function and it's lexical scope is called a _closure_. By creating a closure, we can use a function to close over the current local scope and access it at a later time.
+This combination of a function and it's lexical scope is called a _closure_. By creating a closure, we can use a function to close over the current scope and access it at a later time.
+
+#### Code Along - creating a closure
 
 Here's another example that generates a secret message:
 
 <!-- start code block file="snippets/closures-basic-2.js" -->
+
 ```js
 let sayMessage // this is undefined for now, we'll assign something to it later
 
