@@ -1,17 +1,17 @@
 [![General Assembly Logo](https://camo.githubusercontent.com/1a91b05b8f4d44b5bbfb83abac2b0996d8e26c92/687474703a2f2f692e696d6775722e636f6d2f6b6538555354712e706e67)](https://generalassemb.ly/education/web-development-immersive)
 
-# JS-Blocks-Scope-Closures
+# JS-Scope
 
 ## Prerequisetes 
 - [js-reference-types](https://git.generalassemb.ly/ga-wdi-boston/js-reference-types)
 
 ## Objectives
-- Explain what a block is
+- Explain what a block is.
 - Describe the difference between global and local scope in JavaScript.
 - Identify which part(s) of JavaScript create new scope.
-- Identify which variables are accessible in various scopes
-- Create a closure 
-- Explain why a closure is beneficial 
+- Identify which variables are accessible in various scopes.
+- Create a closure.
+- Explain why a closure is beneficial. 
 
 ## Preparation
 
@@ -78,12 +78,15 @@ You can think of scope as a collection of nested boxes. Each scope acts as a con
 
 Scopes in JavaScript come in two flavors: block scope and function scope. When you create a function, you isolate the scope within that function. Within the function, you can access the local scope and the parent scopes, but outside the function, you cannot see or access the scope within the function. The function's contents are private and are accessible only within that function.
 
-_**Caution** if using `var`:_
-If we are using `var`, the variable will *not* have block scope. Those variables are scoped to the containing function or script, and the value of those variables defined with *var* persist beyond the block itself. For this reason, we always use `let` and `const` so that we do not get any unexpected behavior with our variables.
+_**Caution if using `var`**:_
+
+If we are using `var`, the variable will *not* have block scope. Those variables are scoped to the containing (parent) function or script, and the value of those variables defined with *var* persist beyond the block itself. For this reason, we always use `let` and `const` so that we do not get any unexpected behavior with our variables.
 
 **We can create scope by using functions and blocks:**
 <!-- start code block file="snippets/scope-creation.js" -->
+
 ```js
+
 { /* creates block scope */ }
 
 if { /* creates block scope */ }
@@ -112,6 +115,7 @@ if (true) {
 <!-- end code block -->
 
 *NOT* objects but blocks.
+
 <!-- start code block file="snippets/block-not-object.js" -->
 ```js
 if (true) {
@@ -125,8 +129,8 @@ const obj = {
 ```
 <!-- end code block -->
 
-The outer most scope is the `global scope` and all inner scopes are considered
-`local scopes`.
+The outer most scope is the _global scope_ and all inner scopes are considered
+_local scopes_:
 
 <!-- start code block file="snippets/global-local-scope.js" -->
 ```js
@@ -138,9 +142,10 @@ if (true) {
 ```
 <!-- end code block -->
 
-Variables are accessible within the scope they are declared.
+Variables are accessible within the scope they are declared:
 
 <!-- start code block file="snippets/global-local-scope-vars.js" -->
+
 ```js
 // global scope
 if (true) {
@@ -154,7 +159,7 @@ console.log(x)  // ReferenceError: x is not defined
 ```
 <!-- end code block -->
 
-They are accessible to any inner scopes (child scopes).
+Variables are accessible to any inner scopes (child scopes):
 
 <!-- start code block file="snippets/child-scope-vars.js" -->
 ```js
@@ -171,7 +176,7 @@ console.log(x)  // 2
 ```
 <!-- end code block -->
 
-But not to the scopes above them (parent scopes).
+But not to the scopes above them (parent scopes):
 
 <!-- start code block file="snippets/parent-scope-vars.js" -->
 ```js
@@ -189,7 +194,7 @@ console.log(y)  // ReferenceError: y is not defined
 ```
 <!-- end code block -->
 
-Variables are not accessible from sibling scopes.
+Variables are not accessible from sibling scopes:
 
 <!-- start code block file="snippets/sibling-scope.js" -->
 ```js
@@ -268,6 +273,7 @@ Conditions are just 1 example of block scope.
 Loops are another example of block scope.
 
 <!-- start code block file="snippets/scope-creation-examples.js" -->
+
 ```js
 while (true) { // don't run this
   const a = 1
@@ -369,9 +375,26 @@ sayMessage('Chris')
 
 In JavaScript, when you create a function, you are also creating a closure, which is a combination of a function and the lexical (local) scope (or environment) in which that function was declared.  When you later call the function, the function maintains a reference to its lexical envrionment that was present when that function was declared.
 
-Thinking about a real world example, let's imagine a toy factory that produces different kinds of toys. We want to keep track of the number of each type of toy produced in the toy factory. To do that, we need a generic function that holds data common to each type of toy. This generic function will return a more specialized function that we will use to "build" a specific toy. This is a design pattern for creating objects called the [Factory pattern](https://addyosmani.com/resources/essentialjsdesignpatterns/book/#factorypatternjavascript).
+#### Demo - Factory function
 
-We are going to create a parent function and an inner function. The inner function is going to return a function that we can use later on. This returned function is forever going to get access to the scope of the parent function, because it closed around the scope when the function was defined.
+Thinking about a real world example, let's imagine a toy factory that produces different kinds of toys. We want to keep track of the number of each specific type of toy produced in the entire toy factory. To do that, we need a generic function that holds data common to each type of toy. This generic function will return a more specialized function that we will use to "build" a specific toy. This is a design pattern for creating objects called the [Factory pattern](https://addyosmani.com/resources/essentialjsdesignpatterns/book/#factorypatternjavascript).
+
+
+We are going to create a parent function and a nested inner function. Invoking the parent function will return an inner function that we can use later on.
+
+<details><summary>Why is this an example of a closure?
+<br>
+</summary>
+This returned function is forever going to get access to the scope of the parent function, because it closed around the scope when the function was defined.
+</details>
+<details>
+<summary>Where should we declare the overall toy counter variable, that keeps track of how many toys are produced in each specific toy factory?<br /></summary>
+We should store common data like a counter in the parent function's scope, so that all child functions can have access to the counter variable.
+</details>
+<details>
+<summary>Where should we increment the toy counter? Why?<br /></summary>
+We should increment the toy counter in the specific toy factory instance, because we want each toy counter to be unique to that specific kind of toy.
+</details>
 
 <!-- start code block file="snippets/factory-pattern.js" -->
 ```js
@@ -394,7 +417,7 @@ tamagotchiFactory() // what is the value of numToy?
 ```
 <!-- end code block -->
 
-By using closures, we gain the ability to write code that parallels object-oriented design, creating objects that have data associated its methods. We are able to encapsulate data within an object, and hide data from other parts of our application.
+By using closures, we gain the ability to write code that parallels object-oriented design, creating objects that have data associated with their methods. We are able to encapsulate data within an object, and hide data from other parts of our application.
 
 ### Lab: Diagramming Scope
 
